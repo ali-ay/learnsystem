@@ -1,0 +1,27 @@
+{
+  "name": "dilbaz-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "API sunucusu (Node + PostgreSQL). Port: API_PORT, varsayılan 3001.",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "cli": "node src/cli.js",
+    "content:ai-s1": "node scripts/importContent.mjs ai-s1",
+    "content:ai-s2": "node scripts/importContent.mjs ai-s2",
+    "content:ai-s3": "node scripts/importContent.mjs ai-s3",
+    "content:ai-s4": "node scripts/importContent.mjs ai-s4",
+    "content:ai-s5": "node scripts/importContent.mjs ai-s5",
+    "content:en-a1": "node scripts/importContent.mjs english-a1",
+    "content:en-a2": "node scripts/importContent.mjs english-a2",
+    "content:en-b1": "node scripts/importContent.mjs english-b1",
+    "content:en-b2": "node scripts/importContent.mjs english-b2"
+  },
+  "dependencies": {
+    "pg": "^8.23.1"
+  },
+  "overrides": {
+    "node-forge": "^1.4.3"
+  }
+}

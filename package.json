@@ -1,0 +1,19 @@
+{
+  "name": "dilbaz-tools",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Sadece SonarQube araçları. Uygulama: frontend/ ve backend/ klasörlerinde ayrı ayrı npm run dev.",
+  "scripts": {
+    "sonar": "node scripts/sonarScan.js",
+    "sonar:start": "SONAR_JAVA_PATH=/opt/homebrew/opt/openjdk@21/bin/java PATH=/opt/homebrew/opt/openjdk@21/bin:$PATH /Users/aliay/sonarqube/current/bin/macosx-universal-64/sonar.sh start",
+    "sonar:stop": "SONAR_JAVA_PATH=/opt/homebrew/opt/openjdk@21/bin/java PATH=/opt/homebrew/opt/openjdk@21/bin:$PATH /Users/aliay/sonarqube/current/bin/macosx-universal-64/sonar.sh stop",
+    "sonar:status": "SONAR_JAVA_PATH=/opt/homebrew/opt/openjdk@21/bin/java PATH=/opt/homebrew/opt/openjdk@21/bin:$PATH /Users/aliay/sonarqube/current/bin/macosx-universal-64/sonar.sh status"
+  },
+  "devDependencies": {
+    "sonarqube-scanner": "^5.0.2"
+  },
+  "overrides": {
+    "node-forge": "^1.4.3"
+  }
+}

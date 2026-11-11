@@ -1,0 +1,26 @@
+node_modules/
+
+dist/
+frontend/dist/
+coverage/
+
+.env
+.env.*
+!.env.example
+
+.scannerwork/
+
+# Loglar
+*.log
+npm-debug.log*
+
+# Yerel veritabanı dosyaları ve dump'lar
+*.sqlite
+*.sqlite-*
+*.dump
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

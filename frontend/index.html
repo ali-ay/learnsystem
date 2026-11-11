@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#f5f6fa" />
+    <title>Antigravity JavaScript | İnteraktif JS & Fizik Laboratuvarı</title>
+    <meta name="description" content="JavaScript'i V8 motorundan ileri mimari kalıplarına kadar yerçekimi karşıtı fizik simülasyonları ve interaktif deneylerle öğreten yeni nesil platform." />
+
+    <!-- Google Fonts: Inter Variable Optical Sizing + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/src/styles/index.css" />
+    <link rel="stylesheet" href="/src/styles/admin.css" />
+    <link rel="stylesheet" href="/src/styles/tracks.css" />
+    <link rel="stylesheet" href="/src/styles/auth.css" />
+    <link rel="stylesheet" href="/src/styles/design.css" />
+  </head>
+  <body>
+    <div id="auth-gate" class="auth-gate" hidden></div>
+    <div id="app" data-mobile-view="lesson">
+      <!-- Header Navigation -->
+      <header class="app-header">
+        <div class="header-brand" id="brand-logo" title="Ana Sayfaya Dön">
+          <div class="brand-icon">
+            <svg width="15" height="15" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 15L85 85M15 50L50 85M50 15L85 50" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="brand-title" id="brand-title">Linear JS</div>
+          </div>
+          <span class="brand-badge" id="brand-badge">CURRICULUM</span>
+        </div>
+
+        <!-- Mobile Active Topic Pill -->
+        <div class="mobile-header-module-pill" id="mobile-current-module-badge" title="Müfredat Menüsünü Aç">
+          <span class="mob-pill-dot"></span>
+          <span class="mob-pill-text" id="mobile-header-title">s1-01 V8 Motoru</span>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <button class="btn btn-ghost btn-sm" id="btn-header-tracks" title="Alan seçimine dön">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg> <span class="mobile-hide-text">Alanlar</span>
+          </button>
+          <button class="btn btn-secondary btn-sm btn-desktop-only physics-only" id="btn-toggle-physics-panel" title="Fizik laboratuvarını aç veya kapat">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-20 12 12)"></ellipse></svg> <span id="physics-panel-toggle-text">Fizik Laboratuvarı</span>
+          </button>
+          <button class="btn btn-primary btn-sm btn-desktop-only" id="btn-header-quiz">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"></path><path d="M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"></path><path d="M7 15h10"></path></svg> Seviye Sınavı <span class="header-count" id="quiz-count-badge">465</span>
+          </button>
+          <span class="header-divider btn-desktop-only" aria-hidden="true"></span>
+          <button class="btn btn-ghost btn-sm btn-desktop-only" id="btn-header-admin" title="İçerik ve soruları yönet">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg> Yönetim
+          </button>
+          <button class="btn btn-ghost btn-sm btn-icon" id="btn-theme-toggle" title="Koyu temaya geç" aria-label="Koyu temaya geç">
+            <span id="theme-toggle-icon" class="icon-slot"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></span>
+          </button>
+          <button class="btn btn-ghost btn-sm btn-icon" id="btn-header-logout" title="Hesaptan çık" aria-label="Hesaptan çık">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path></svg>
+          </button>
+          <!-- Mobile Sidebar Drawer Trigger -->
+          <button class="btn btn-secondary btn-sm btn-icon btn-mobile-only" id="btn-mobile-sidebar-toggle" title="Müfredatı aç" aria-label="Müfredatı aç">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Track picker / empty track state -->
+      <section id="track-view" class="track-view" style="display:none;"></section>
+
+      <!-- Admin Panel Dedicated Mount -->
+      <div id="admin-mount" style="display:none;width:100%;height:calc(100vh - 65px);"></div>
+
+      <!-- Mobile Drawer Backdrop Overlay -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- App Main Workspace -->
+      <div class="app-body" id="student-workspace">
+        <!-- Sidebar Navigation: Collapsible Stage Groups (Desktop Column / Mobile Slide-in Drawer) -->
+        <aside class="app-sidebar" id="app-sidebar">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Müfredat</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <button class="btn btn-ghost btn-sm btn-icon" id="btn-toggle-all-stages" title="Tüm grupları aç veya kapat" aria-label="Tüm grupları aç veya kapat">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+              </button>
+              <span class="tag-counter" id="progress-badge">0 / 90</span>
+              <button class="btn btn-ghost btn-sm btn-icon btn-mobile-only" id="btn-sidebar-close" title="Müfredatı kapat" aria-label="Müfredatı kapat">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+            </div>
+          </div>
+          <div class="sidebar-stages-accordion" id="sidebar-stages-accordion">
+            <!-- Dynamically populated with collapsible stage groups -->
+          </div>
+        </aside>
+
+        <!-- Main Split View: Lesson + Antigravity Canvas Lab -->
+        <main class="app-main">
+          <!-- Lesson Content Column -->
+          <section class="lesson-view" id="lesson-viewport">
+            <!-- Dynamically injected curriculum content -->
+          </section>
+
+          <!-- Antigravity Physics Stage Column -->
+          <section class="physics-stage-container">
+            <!-- Canvas Toolbar -->
+            <div class="stage-toolbar">
+              <div class="control-group">
+                <button class="btn btn-primary btn-sm" id="btn-toggle-gravity">
+                  Antigravity: <span id="gravity-status-text">Kapalı</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-reset-physics">
+                  Sıfırla
+                </button>
+              </div>
+
+              <div class="control-group">
+                <span>Yerçekimi:</span>
+                <input type="range" id="gravity-slider" min="0" max="0.8" step="0.04" value="0.28" class="control-slider" />
+                <span class="tag-counter" id="particle-counter">0 Parçacık</span>
+                <button class="btn btn-ghost btn-sm btn-icon" id="btn-stage-close" title="Fizik laboratuvarını kapat" aria-label="Fizik laboratuvarını kapat">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Canvas Physics Canvas -->
+            <div class="canvas-wrapper" id="canvas-wrapper">
+              <canvas id="physics-canvas"></canvas>
+
+              <!-- Selective Floating DOM Card (Rule #3) -->
+              <div class="floating-dom-card" id="floating-dom-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                  <span style="font-family: var(--font-display); font-weight: 700; color: var(--accent-cyan); font-size: 0.9rem;">
+                    Antigravity DOM Bridge
+                  </span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">
+                    60/120 FPS ISOLATED
+                  </span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; margin: 0;">
+                  Fareyi bu kartın üzerine getirdiğinizde 3D jiroskopik süzülme tetiklenir. Canvas üzerindeki boşluğa tıklayarak yeni fiziksel token fırlatabilir veya sol tıkla parçacıkları savurabilirsiniz!
+                </p>
+              </div>
+            </div>
+
+            <!-- Console Drawer -->
+            <div class="console-drawer">
+              <div class="console-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald);"></span>
+                  <span>ISOLATED WORKER CONSOLE (2s TIMEOUT)</span>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-secondary btn-sm" id="btn-clear-console" style="padding: 2px 8px; font-size: 0.72rem;">
+                    Temizle
+                  </button>
+                </div>
+              </div>
+              <div class="console-body" id="console-output">
+                <div class="console-line info">
+                  <span class="console-prompt">&gt;</span>
+                  <span>[Antigravity Sandbox]: Web Worker hazır. Güvenli kod çalıştırma ortamı devrede.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+      <!-- Native Mobile App Bottom Navigation Bar -->
+      <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobil Ana Gezinme">
+        <button class="mob-nav-item active" data-view="lesson" id="mob-nav-lesson" title="Ders İçeriği">
+          <div class="mob-nav-icon-wrap">
+            <span class="mob-nav-icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"></path><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"></path></svg></span>
+            <span class="mob-nav-indicator"></span>
+          </div>
+          <span class="mob-nav-label">Ders</span>
+        </button>
+        <button class="mob-nav-item physics-only" data-view="physics" id="mob-nav-physics" title="Fizik Laboratuvarı">
+          <div class="mob-nav-icon-wrap">
+            <span class="mob-nav-icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-20 12 12)"></ellipse></svg></span>
+            <span class="mob-nav-indicator"></span>
+          </div>
+          <span class="mob-nav-label">Fizik Lab</span>
+        </button>
+        <button class="mob-nav-item" data-view="curriculum" id="mob-nav-curriculum" title="Müfredat Listesi">
+          <div class="mob-nav-icon-wrap">
+            <span class="mob-nav-icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg></span>
+            <span class="mob-nav-indicator"></span>
+          </div>
+          <span class="mob-nav-label">Müfredat</span>
+        </button>
+        <button class="mob-nav-item" data-view="quiz" id="mob-nav-quiz" title="Seviye Değerlendirme Sınavı">
+          <div class="mob-nav-icon-wrap">
+            <span class="mob-nav-icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"></path><path d="M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"></path><path d="M7 15h10"></path></svg></span>
+            <span class="mob-nav-indicator"></span>
+          </div>
+          <span class="mob-nav-label">Sınav</span>
+        </button>
+        <button class="mob-nav-item" data-view="admin" id="mob-nav-admin" title="Yönetim Paneli">
+          <div class="mob-nav-icon-wrap">
+            <span class="mob-nav-icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg></span>
+            <span class="mob-nav-indicator"></span>
+          </div>
+          <span class="mob-nav-label">Yönetim</span>
+        </button>
+      </nav>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

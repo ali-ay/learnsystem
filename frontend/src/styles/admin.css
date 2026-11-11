@@ -1,0 +1,614 @@
+/* ==========================================================================
+   Linear Admin & Database Management Panel Styles (https://linear.app)
+   Precise workspace controls, hairline borders, Linear Purple accents
+   ========================================================================== */
+
+.admin-viewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* --- Admin Top Header Bar --- */
+.admin-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(11, 12, 14, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border-translucent);
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-main-title {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 590;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-sub-title {
+  font-size: 0.6875rem;
+  color: var(--color-text-quaternary);
+  font-family: var(--font-mono);
+}
+
+.admin-stats-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.admin-stat-pill {
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  padding: 2px 7px;
+  border-radius: var(--radius-4);
+  background: var(--color-bg-translucent);
+  border: 1px solid var(--color-border-translucent);
+  color: var(--color-text-tertiary);
+}
+
+.admin-stat-pill.active {
+  border-color: color-mix(in srgb, var(--color-brand-bg) 30%, transparent);
+  color: var(--color-link-primary);
+  background: color-mix(in srgb, var(--color-brand-bg) 8%, transparent);
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Save Button - Linear Primary */
+.btn-save-master {
+  background: var(--color-brand-bg) !important;
+  color: #ffffff !important;
+  font-weight: 510;
+  border-radius: var(--radius-6);
+  box-shadow: var(--shadow-button-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  transition: all 120ms ease;
+}
+
+.btn-save-master:hover {
+  background: var(--color-brand-hover) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* --- Admin Workspace Layout --- */
+.admin-workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* --- Left Modules Explorer Sidebar --- */
+.admin-sidebar {
+  width: 300px;
+  min-width: 260px;
+  max-width: 340px;
+  border-right: 1px solid var(--color-border-translucent);
+  background: var(--color-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.admin-search-box {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-translucent);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--color-bg-translucent);
+}
+
+.admin-input {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-6);
+  color: var(--color-text-primary);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  transition: all 120ms ease;
+}
+
+.admin-input:focus {
+  outline: none;
+  border-color: var(--color-brand-bg);
+  box-shadow: 0 0 0 1px var(--color-brand-bg);
+  background: var(--color-bg-secondary);
+}
+
+.admin-select {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-6);
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.admin-select:focus {
+  outline: none;
+  border-color: var(--color-brand-bg);
+}
+
+.admin-module-list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-module-card {
+  padding: 8px 10px;
+  border-radius: var(--radius-6);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 100ms ease;
+}
+
+.admin-module-card:hover {
+  background: var(--color-bg-translucent);
+}
+
+.admin-module-card.active {
+  background: var(--color-bg-translucent-hover);
+  border-color: var(--color-border-translucent);
+}
+
+.admin-mod-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-mod-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  padding: 1px 5px;
+  border-radius: var(--radius-4);
+  background: var(--color-bg-translucent);
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.admin-module-card.active .admin-mod-badge {
+  background: color-mix(in srgb, var(--color-brand-bg) 20%, transparent);
+  color: var(--color-link-primary);
+}
+
+.admin-mod-title {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.admin-mod-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--color-text-quaternary);
+  font-family: var(--font-mono);
+}
+
+/* --- Right Editor Container --- */
+.admin-editor-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--color-bg-primary);
+}
+
+/* Module Active Banner */
+.admin-editor-header {
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--color-border-translucent);
+  background: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-editor-title-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-editor-title-box h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-family: var(--font-sans);
+  font-weight: 590;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+}
+
+/* Tabs Bar */
+.admin-tabs-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--color-border-translucent);
+  background: var(--color-bg-secondary);
+  gap: 4px;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.admin-tab-btn {
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-tertiary);
+  font-size: 0.8125rem;
+  font-weight: 510;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 120ms ease;
+  white-space: nowrap;
+}
+
+.admin-tab-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.admin-tab-btn.active {
+  color: var(--color-text-primary);
+  border-bottom-color: var(--color-brand-bg);
+}
+
+.admin-tab-pill {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  padding: 1px 5px;
+  border-radius: var(--radius-4);
+  background: var(--color-bg-translucent-hover);
+  color: var(--color-text-tertiary);
+}
+
+.admin-tab-btn.active .admin-tab-pill {
+  background: color-mix(in srgb, var(--color-brand-bg) 20%, transparent);
+  color: var(--color-link-primary);
+}
+
+/* Tab Panels Scroll Container */
+.admin-tab-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px;
+  display: none;
+}
+
+.admin-tab-panel.active {
+  display: block;
+}
+
+/* Form Layout Components */
+.admin-form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.admin-label {
+  font-size: 0.72rem;
+  font-weight: 590;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-label-hint {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--color-text-quaternary);
+}
+
+.admin-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-6);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  resize: vertical;
+  min-height: 140px;
+}
+
+.admin-textarea:focus {
+  outline: none;
+  border-color: var(--color-brand-bg);
+  box-shadow: 0 0 0 1px var(--color-brand-bg);
+  background: var(--color-bg-secondary);
+}
+
+.admin-code-editor {
+  min-height: 220px;
+  font-family: var(--font-mono);
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border-translucent);
+  color: var(--color-code-text);
+}
+
+/* Best Practices List in Admin */
+.admin-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-practice-item {
+  padding: 12px 14px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-8);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-practice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Quiz Question Cards in Admin */
+.admin-question-card {
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-8);
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-question-card:hover {
+  border-color: var(--color-border-translucent-strong);
+}
+
+.admin-q-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-q-number {
+  font-family: var(--font-sans);
+  font-weight: 590;
+  font-size: 0.88rem;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-option-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: var(--radius-6);
+  background: var(--color-bg-translucent);
+  border: 1px solid var(--color-border-translucent);
+}
+
+.admin-option-row.correct {
+  border-color: var(--color-green-border);
+  background: var(--color-green-tint);
+}
+
+.admin-option-radio {
+  cursor: pointer;
+  accent-color: var(--color-brand-bg);
+}
+
+/* Floating Toast Notification */
+.admin-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 16px;
+  background: #141518;
+  border: 1px solid var(--color-border-translucent-strong);
+  border-radius: var(--radius-8);
+  color: #ffffff;
+  font-size: 0.8125rem;
+  box-shadow: var(--shadow-high);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 9999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.admin-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.admin-toast.success {
+  border-color: var(--color-green-border);
+}
+
+.admin-toast.error {
+  border-color: var(--color-red-border);
+}
+
+/* Modal Popup */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.admin-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.admin-modal-card {
+  width: 90%;
+  max-width: 520px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-8);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-high);
+  transform: scale(0.97);
+  transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-modal-overlay.open .admin-modal-card {
+  transform: scale(1);
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-modal-title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 590;
+  color: var(--color-text-primary);
+}
+
+/* ==========================================================================
+   Admin Mobile Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 860px) {
+  .admin-viewport {
+    height: 100% !important;
+  }
+
+  .admin-header {
+    height: auto !important;
+    flex-wrap: wrap !important;
+    padding: 10px 14px !important;
+    gap: 8px !important;
+  }
+
+  .admin-header-left {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .admin-stats-pills {
+    width: 100% !important;
+    overflow-x: auto !important;
+    padding-bottom: 4px !important;
+  }
+
+  .admin-body {
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    height: auto !important;
+  }
+
+  .admin-sidebar {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 220px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-border-translucent) !important;
+  }
+
+  .admin-main {
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .admin-content-inner {
+    padding: 14px !important;
+  }
+}
+

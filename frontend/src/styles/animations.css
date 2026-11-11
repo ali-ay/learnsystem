@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Linear Motion & Micro-Animations (https://linear.app)
+   Subtle, purposeful transitions with cubic-bezier curves
+   ========================================================================== */
+
+@keyframes linearFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes linearPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes linearSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-fade-in {
+  animation: linearFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-pulse-subtle {
+  animation: linearPulse 2s ease-in-out infinite;
+}
+
+.anim-spin-slow {
+  animation: linearSpin 16s linear infinite;
+}

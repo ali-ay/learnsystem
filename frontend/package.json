@@ -1,0 +1,15 @@
+{
+  "name": "dilbaz-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Web arayüzü (Vite). Port 3000; /api isteklerini backend projesine yönlendirir.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

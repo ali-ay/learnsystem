@@ -1,0 +1,848 @@
+/* ==========================================================================
+   Linear Layout System (https://linear.app)
+   Clean architecture, exact spacing, hairline dividers, typography
+   ========================================================================== */
+
+/* Reset & Base Layout */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: var(--font-settings);
+  font-variation-settings: var(--font-variations);
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-primary);
+}
+
+/* Linear Top Navigation Header */
+.app-header {
+  height: var(--header-height);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border-translucent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  z-index: 30;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.brand-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-6);
+  background: linear-gradient(135deg, #5e6ad2 0%, #4ea7fc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.72rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.brand-title {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 590;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+}
+
+.brand-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--radius-4);
+  background: var(--color-bg-translucent);
+  border: 1px solid var(--color-border-translucent);
+  color: var(--color-text-tertiary);
+}
+
+/* Stage Navigation: Linear Segmented Control */
+.level-selector {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-translucent);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-8);
+  padding: 3px;
+  gap: 2px;
+}
+
+.level-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-6);
+  color: var(--color-text-tertiary);
+  font-size: 0.78rem;
+  font-weight: 510;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  padding: 5px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 120ms ease;
+  white-space: nowrap;
+}
+
+.level-btn:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-translucent);
+}
+
+.level-btn.active {
+  color: var(--color-text-primary);
+  background: var(--color-bg-translucent-hover);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.level-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.level-btn.active .level-dot {
+  opacity: 1;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Header Action Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* App Main Workspace */
+.app-body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Linear Sidebar (Issue / Module Navigation) */
+.app-sidebar {
+  width: var(--sidebar-width);
+  min-width: 260px;
+  max-width: 340px;
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border-translucent);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  height: 42px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--color-border-translucent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg-translucent);
+}
+
+.sidebar-title {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 590;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-quaternary);
+}
+
+.tag-counter {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  padding: 2px 6px;
+  background: var(--color-bg-translucent);
+  border-radius: var(--radius-4);
+  border: 1px solid var(--color-border-translucent);
+}
+
+.module-list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* Custom Scrollbars in Linear */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-translucent-hover);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-translucent-strong);
+}
+
+/* Main Split View: Lesson + Physics Canvas */
+.app-main {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  position: relative;
+  background: var(--color-bg-primary);
+}
+
+/* Lesson Content Viewport */
+.lesson-view {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  padding: 36px 48px 100px 48px;
+  background: var(--color-bg-primary);
+  transition: flex 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Antigravity Physics Stage Column */
+.physics-stage-container {
+  width: 480px;
+  min-width: 360px;
+  max-width: 600px;
+  height: 100%;
+  border-left: 1px solid var(--color-border-translucent);
+  background: var(--color-bg-primary);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Collapsible Physics Mode */
+#app.physics-collapsed .physics-stage-container {
+  display: none !important;
+  width: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#app.physics-collapsed .lesson-view {
+  flex: 1 1 100%;
+  max-width: 100%;
+  padding-left: max(48px, calc((100vw - var(--sidebar-width) - 960px) / 2));
+  padding-right: max(48px, calc((100vw - var(--sidebar-width) - 960px) / 2));
+}
+
+.floating-physics-opener {
+  display: none;
+  position: fixed;
+  top: 70px;
+  right: 24px;
+  z-index: 45;
+  box-shadow: var(--shadow-high);
+}
+
+#app.physics-collapsed .floating-physics-opener {
+  display: inline-flex;
+}
+
+/* Canvas Toolbar */
+.stage-toolbar {
+  height: 42px;
+  padding: 0 14px;
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-translucent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-slider {
+  appearance: none;
+  width: 75px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-border-translucent-strong);
+  outline: none;
+}
+
+.control-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-text-primary);
+  cursor: pointer;
+}
+
+/* Canvas Wrapper */
+.canvas-wrapper {
+  flex: 1;
+  position: relative;
+  background: var(--color-bg-primary);
+  overflow: hidden;
+  min-height: 200px;
+}
+
+#physics-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Floating DOM Bridge in Physics Lab */
+.floating-dom-card {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 250px;
+  padding: 12px 14px;
+  background: var(--color-bg-secondary);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-8);
+  box-shadow: var(--shadow-high);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+/* Console Drawer (Linear Terminal Look) */
+.console-drawer {
+  height: 170px;
+  background: var(--color-code-bg);
+  border-top: 1px solid var(--color-border-translucent);
+  display: flex;
+  flex-direction: column;
+}
+
+.console-header {
+  height: 32px;
+  padding: 0 12px;
+  background: var(--color-bg-translucent);
+  border-bottom: 1px solid var(--color-border-translucent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-quaternary);
+  letter-spacing: 0.03em;
+}
+
+.console-body {
+  flex: 1;
+  padding: 10px 12px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.console-line {
+  display: flex;
+  gap: 6px;
+  color: var(--color-code-text);
+}
+
+.console-line.info { color: #a0a5bf; }
+.console-line.error { color: var(--color-red); }
+.console-line.warn { color: var(--color-yellow); }
+.console-prompt { color: var(--color-text-quaternary); }
+
+/* Ambient lights removed in Linear design */
+.ambient-glow {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Mobile-First App Utilities & Desktop Defaults
+   ========================================================================== */
+.btn-mobile-only {
+  display: none !important;
+}
+
+.btn-desktop-only {
+  display: inline-flex !important;
+}
+
+.mobile-bottom-nav {
+  display: none;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+.mobile-header-module-pill {
+  display: none;
+}
+
+/* ==========================================================================
+   Native Mobile App Mode (Screen width <= 860px)
+   Transforms web layout into a high-end mobile application
+   ========================================================================== */
+@media (max-width: 860px) {
+  .btn-mobile-only {
+    display: inline-flex !important;
+  }
+
+  .btn-desktop-only {
+    display: none !important;
+  }
+
+  /* Safe Area Root Shell */
+  html, body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: pan-x pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #app {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    position: relative;
+    padding-top: var(--safe-top);
+  }
+
+  /* Mobile Top App Header */
+  .app-header {
+    height: var(--mobile-header-height);
+    padding: 0 12px;
+    gap: 8px;
+    background: var(--bg-glass);
+    border-bottom: 1px solid var(--color-border-translucent);
+    z-index: 40;
+  }
+
+  [data-theme="light"] .app-header {
+    background: rgba(255, 255, 255, 0.94);
+  }
+
+  .brand-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .brand-title {
+    font-size: 0.82rem;
+  }
+
+  .brand-badge {
+    display: none !important;
+  }
+
+  /* Mobile Active Topic Pill in App Header */
+  .mobile-header-module-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-bg-translucent);
+    border: 1px solid var(--color-border-translucent);
+    border-radius: var(--radius-full);
+    padding: 3px 10px;
+    max-width: 160px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  [data-theme="light"] .mobile-header-module-pill {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-header-module-pill:active {
+    transform: scale(0.96);
+    background: var(--color-bg-translucent-hover);
+  }
+
+  .mob-pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-brand-bg);
+    box-shadow: 0 0 6px var(--color-brand-bg);
+    flex-shrink: 0;
+  }
+
+  .mob-pill-text {
+    font-size: 0.72rem;
+    font-family: var(--font-sans);
+    font-weight: 510;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-actions {
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .header-actions .btn {
+    padding: 4px 8px;
+    font-size: 0.74rem;
+  }
+
+  .mobile-hide-text {
+    display: none;
+  }
+
+  /* Main Workspace for Mobile */
+  .app-body {
+    height: calc(100dvh - var(--mobile-header-height) - var(--mobile-nav-height) - var(--safe-bottom) - var(--safe-top));
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Off-Canvas Mobile Drawer for Curriculum Sidebar */
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background: var(--color-overlay);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 199;
+    opacity: 0;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .app-sidebar {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 86vw !important;
+    max-width: 340px !important;
+    min-width: 280px !important;
+    height: 100dvh !important;
+    z-index: 200 !important;
+    background: var(--color-bg-secondary) !important;
+    border-right: 1px solid var(--color-border-translucent);
+    box-shadow: 8px 0 32px var(--color-overlay);
+    transform: translateX(-100%);
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  .sidebar-header {
+    height: 48px;
+    padding: 0 14px;
+  }
+
+  .sidebar-stages-accordion {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 10px 40px 10px;
+  }
+
+  /* Mobile App Main Split Replacement (Single View with Native Tab Switching) */
+  .app-main {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* View 1: Lesson Active Mode */
+  #app[data-mobile-view="lesson"] .lesson-view {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 16px calc(24px + var(--mobile-nav-height)) 16px !important;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  #app[data-mobile-view="lesson"] .physics-stage-container {
+    display: none !important;
+  }
+
+  /* View 2: Physics Lab Active Mode */
+  #app[data-mobile-view="physics"] .lesson-view {
+    display: none !important;
+  }
+
+  #app[data-mobile-view="physics"] .physics-stage-container {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    flex: 1 1 100% !important;
+    border-left: none !important;
+    position: relative;
+    padding-bottom: 0;
+  }
+
+  /* Physics Stage Mobile Adjustments */
+  .stage-toolbar {
+    height: auto;
+    min-height: 44px;
+    padding: 6px 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.72rem;
+  }
+
+  .stage-toolbar .control-group {
+    flex: 1;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  #btn-stage-close {
+    display: none !important; /* Managed by mobile bottom nav */
+  }
+
+  .floating-physics-opener {
+    display: none !important;
+  }
+
+  .canvas-wrapper {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+  }
+
+  /* Floating DOM Bridge in Mobile Lab */
+  .floating-dom-card {
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-width: none;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    background: var(--bg-glass);
+  }
+
+  .floating-dom-card p {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  /* Mobile Console Drawer */
+  .console-drawer {
+    height: 120px;
+    border-top: 1px solid var(--color-border-translucent);
+  }
+
+  .console-header {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 0.64rem;
+  }
+
+  .console-body {
+    padding: 6px 10px;
+    font-size: 0.68rem;
+  }
+
+  /* View 3: Admin Mode */
+  #admin-mount {
+    height: calc(100dvh - var(--mobile-header-height) - var(--mobile-nav-height) - var(--safe-bottom) - var(--safe-top)) !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Native Mobile Bottom Navigation Bar */
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--mobile-nav-height) + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
+    background: var(--bg-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid var(--color-border-translucent);
+    z-index: 100;
+    align-items: stretch;
+    justify-content: space-around;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  [data-theme="light"] .mobile-bottom-nav {
+    background: rgba(255, 255, 255, 0.94);
+    border-top-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .mob-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-quaternary);
+    font-size: 0.68rem;
+    font-family: var(--font-sans);
+    font-weight: 510;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.16s ease;
+    user-select: none;
+    padding: 4px 0;
+    position: relative;
+  }
+
+  .mob-nav-icon-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 24px;
+  }
+
+  .mob-nav-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mob-nav-indicator {
+    position: absolute;
+    top: -4px;
+    width: 14px;
+    height: 3px;
+    border-radius: 999px;
+    background: transparent;
+    transition: background 0.2s ease, width 0.2s ease;
+  }
+
+  .mob-nav-label {
+    letter-spacing: -0.01em;
+    transition: color 0.16s ease, font-weight 0.16s ease;
+  }
+
+  /* Active Mobile Tab State */
+  .mob-nav-item.active {
+    color: var(--color-text-primary);
+  }
+
+  .mob-nav-item.active .mob-nav-icon {
+    transform: translateY(-1px) scale(1.08);
+  }
+
+  .mob-nav-item.active .mob-nav-indicator {
+    background: var(--color-brand-bg);
+    box-shadow: 0 0 8px var(--color-brand-bg);
+    width: 18px;
+  }
+
+  .mob-nav-item.active .mob-nav-label {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  /* Tactile Press Feel */
+  .mob-nav-item:active {
+    transform: scale(0.92);
+  }
+}
